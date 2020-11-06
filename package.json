@@ -1,0 +1,27 @@
+{
+  "name": "to-do-app-backend",
+  "version": "1.0.0",
+  "description": "[![Reviewed by Hound](https://img.shields.io/badge/Reviewed%20by-Hound-blueviolet)](https://houndci.com)",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Soma-Technologies-Inc/to-do-app-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Soma-Technologies-Inc/to-do-app-backend/issues"
+  },
+  "homepage": "https://github.com/Soma-Technologies-Inc/to-do-app-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

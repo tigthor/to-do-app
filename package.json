@@ -2,7 +2,7 @@
   "name": "to-do-app-backend",
   "version": "1.0.0",
   "description": "[![Reviewed by Hound](https://img.shields.io/badge/Reviewed%20by-Hound-blueviolet)](https://houndci.com)",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start:dev": "nodemon ./src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"

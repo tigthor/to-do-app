@@ -2,16 +2,16 @@
 
 var express = require('express');
 
+var app = express();
+
 var bodyParser = require('body-parser');
 
-var urlencodeParser = bodyParser.urlencoded({
-  extended: false
-});
-var app = express();
-var port = 3000;
+app.use(express.json());
+app.use(bodyParser.json()); //importing routes
 
-require("./Routes/index")(app);
+var router = require('./Routes');
 
-app.listen(port, function () {
-  return console.log("Example app listening on port port!");
+app.use(router);
+app.listen(3000, function () {
+  console.log("server is running well");
 });

@@ -1,12 +1,19 @@
-module.exports = app => {
-    const todoTasks = require('../Controllers/index');
-    const router = require('express').Router();
+const express = require('express');
 
-    router.get('/tasks', todoTasks.findAll);
-    router.post('/tasks', todoTasks.create);
-    router.put('/tasks/:id', todoTasks.update);
-    router.delete('/tasks/', todoTasks.deleteAll);
-    router.delete('/tasks/:id', todoTasks.delete);
+const {
+    CreateTaskController,
+    getAllTasks,
+    UpdateTaskController,
+    deleteTaskController,
+    deleteAllTasks
+} = require('../Controllers/index.js');
 
-    app.use('/api', router);
-};
+const router = express.Router();
+
+router.post('/api/task', CreateTaskController);
+router.get('/api/task', getAllTasks);
+router.put('/api/task/:id', UpdateTaskController);
+router.delete('/api/task/:id', deleteTaskController);
+router.delete('/api/task', deleteAllTasks);
+
+module.exports = router;

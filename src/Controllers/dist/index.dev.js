@@ -2,52 +2,53 @@
 
 var express = require('express');
 
-var data = [{}];
+var Tasks = [];
 
-exports.create = function (req, res) {
+var CreateTaskController = function CreateTaskController(req, res) {
   var newTask = {
-    id: data.length + 1,
-    name: req.body.name,
-    priority: req.body.priority
+    id: Tasks.length + 1,
+    TaskName: req.body.TaskName,
+    TaskPriority: req.body.TaskPriority
   };
-  data.push(newTask);
-  res.status(201).json(newTask);
+  Tasks.push(newTask);
+  return res.status(201).send(Tasks);
 };
 
-exports.findAll = function (req, res) {
-  res.status(200).json(data);
+var getAllTasks = function getAllTasks(req, res) {
+  return res.status(200).send(Tasks);
 };
 
-exports.findOne = function (req, res) {};
+var getTasksById = function getTasksById(req, res) {};
 
-exports.update = function (req, res) {
-  var _req$body = req.body,
-      title = _req$body.title,
-      priority = _req$body.priority;
-  var tastWithId = data.find(function (tastId) {
-    tastId.id === parseInt(req.params.id);
+var UpdateTaskController = function UpdateTaskController(req, res) {
+  var findTask = Tasks.find(function (task) {
+    return task.id === parseInt(req.params.id);
   });
-  taskWithId.name = req.body.name;
-  taskWithId.priority = req.body.priority;
-  res.send(taskWithId);
+  if (!findTask) return res.status(404).send('task not found');
+  findTask.TaskName = req.body.TaskName;
+  findTask.TaskPriority = req.body.TaskPriority;
+  res.status(200).send(findTask);
 };
 
-exports["delete"] = function (req, res) {
-  var id = req.params.id;
-  data = data.filter(function (b) {
-    return b.id.replace(/\b/g, '-') !== id;
+var deleteTaskController = function deleteTaskController(req, res) {
+  var taskToDelete = Tasks.find(function (task) {
+    return task.id === parseInt(req.params.id);
   });
-  res.send("Delete record with id id");
+  if (!taskToDelete) return res.status(404).json('Oups this task is not here to find and you may be lost');
+  var index = Tasks.indexOf(taskToDelete);
+  Tasks.splice(index, 1);
+  res.status(200).json("task successfully deleted");
 };
 
-exports.deleteAll = function (req, res) {
-  data.deleteMany({}).then(function (data) {
-    res.send({
-      message: "".concat(data.deletedCount, " Tutorials were deleted successfully!")
-    });
-  })["catch"](function (err) {
-    res.status(500).send({
-      message: err.message || "Some error occurred while removing all tutorials."
-    });
-  });
+var deleteAllTasks = function deleteAllTasks(req, res) {
+  Tasks.splice(0, Tasks.length);
+  res.status(200).json('All todo tasks were successfully deleted yu know that you wont find any');
+};
+
+module.exports = {
+  CreateTaskController: CreateTaskController,
+  getAllTasks: getAllTasks,
+  UpdateTaskController: UpdateTaskController,
+  deleteTaskController: deleteTaskController,
+  deleteAllTasks: deleteAllTasks
 };
